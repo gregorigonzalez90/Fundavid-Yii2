@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace backend\controllers;
 
 use Yii;
 use app\models\Persona;
@@ -123,6 +123,21 @@ class PersonaController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionAlumno()
+    {
+        $model = new Persona();
+        $Alumno = 1;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'nacionalidad' => $model->nacionalidad, 'numero_identificacion' => $model->numero_identificacion]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'Alumno' => $Alumno,
+            ]);
         }
     }
 }

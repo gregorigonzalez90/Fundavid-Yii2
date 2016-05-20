@@ -9,8 +9,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="persona-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    
+    <?php  
+    $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nacionalidad')->textInput() ?>
 
