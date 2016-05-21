@@ -8,6 +8,7 @@ use app\models\PersonaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Alumno;
 
 /**
  * PersonaController implements the CRUD actions for Persona model.
@@ -132,6 +133,12 @@ class PersonaController extends Controller
         $Alumno = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $modelAlumno = new Alumno();
+            $modelAlumno->persona_nacionalidad = $model->nacionalidad;
+            $modelAlumno->persona_numero_identificacion = $model->numero_identificacion;
+            $modelAlumno->save();
+            
             return $this->redirect(['view', 'nacionalidad' => $model->nacionalidad, 'numero_identificacion' => $model->numero_identificacion]);
         } else {
             return $this->render('create', [

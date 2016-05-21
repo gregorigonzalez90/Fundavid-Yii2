@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use \kartik\datetime\DateTimePicker;
+//use \kartik\datepicker\DatePicker;
+use \kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Persona */
@@ -10,6 +13,10 @@ use yii\widgets\ActiveForm;
 
 <div class="persona-form">
     
+    <?php 
+        echo date('d-m-Y');
+    ?>
+
     <?php  
     $form = ActiveForm::begin(); ?>
 
@@ -27,13 +34,43 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sexo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fecha_nacimiento')->textInput() ?>
+    <?php 
+    
+     ?>
+    <?= $form->field($model, 'fecha_nacimiento')->widget(DatePicker::className(),[
+        'type' => DatePicker::TYPE_COMPONENT_PREPEND ,
+        'language' => 'es',
+        'options' => ['placeholder' => 'Seleccione fecha de nacimiento'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-MM-yyyy'
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'ciudad_nacimiento')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fecha_emision')->textInput() ?>
+    <?= $form->field($model, 'fecha_emision')->widget(DatePicker::className(),[
+        'type' => DatePicker::TYPE_COMPONENT_PREPEND ,
+        'language' => 'es',
+        'options' => ['placeholder' => 'Seleccione de emision'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-MM-yyyy'
+        ]
+    ]); ?>
 
-    <?= $form->field($model, 'fecha_vencimiento')->textInput() ?>
+    <?= $form->field($model, 'fecha_vencimiento')->widget(DatePicker::className(),[
+        'type' => DatePicker::TYPE_COMPONENT_PREPEND ,
+        'language' => 'es',
+        'options' => ['placeholder' => 'Seleccione fecha de vencimiento'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'dd-MM-yyyy'
+        ]
+    ]);?>
 
     <?= $form->field($model, 'numero_residencia')->textInput(['maxlength' => true]) ?>
 
