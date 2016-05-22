@@ -9,6 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Alumno;
+use app\models\Nacionalidad;
+use app\models\GradoInstruccion;
+use app\models\Parroquia;
+
 
 /**
  * PersonaController implements the CRUD actions for Persona model.
@@ -130,20 +134,55 @@ class PersonaController extends Controller
     public function actionAlumno()
     {
         $model = new Persona();
-        $Alumno = 1;
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             $modelAlumno = new Alumno();
             $modelAlumno->persona_nacionalidad = $model->nacionalidad;
             $modelAlumno->persona_numero_identificacion = $model->numero_identificacion;
             $modelAlumno->save();
+
+            $datetime1 = date_create(date('Y-M-d'));
+            $datetime2 = date_create($model->fecha_nacimiento);
+            $interval = $datetime2->diff($datetime1);
             
-            return $this->redirect(['view', 'nacionalidad' => $model->nacionalidad, 'numero_identificacion' => $model->numero_identificacion]);
+            if (($interval->format('%Y%')) < 18){
+                //Aqui debe de ir el enlace hacia el representante para que cargue los datos
+                return $this->render('/site/index');
+            }else
+            {
+                return $this->redirect(['view', 'nacionalidad' => $model->nacionalidad, 'numero_identificacion' => $model->numero_identificacion]);
+            }
+            
         } else {
+
+            $gradoinstruccion = GradoInstruccion::find()->all();
+            $nacionalidad = Nacionalidad::find()->all();
+            $parroquia = Parroquia::find()->all();
+
+            $Alumno = 1;
+
+            //array que almacena las distintas nacionalidades almacenadas en BD
+            foreach ($nacionalidad as $valores):
+                $nacionalidades [$valores->id] = $valores->tipo;
+            endforeach;
+
+            //array que almacena las distintos grados de instruccion almacenadas en BD
+            foreach ($gradoinstruccion as $valores):
+                $grados [$valores->id] = $valores->descripcion;
+            endforeach;
+
+            //array que almacena las distintas parroquias que estan almacenadas en BD
+            foreach ($parroquia as $valores):
+                $parroquias [$valores->id] = $valores->nombre;
+            endforeach;
+
             return $this->render('create', [
                 'model' => $model,
                 'Alumno' => $Alumno,
+                'nacionalidad' => $nacionalidades,
+                'grados' => $grados,
+                'parroquias' => $parroquias,
             ]);
         }
     }

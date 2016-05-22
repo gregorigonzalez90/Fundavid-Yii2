@@ -13,17 +13,15 @@ $this->title = 'Datos Personales';
 <div class="persona-create">
 	
     <h1><?= Html::encode($this->title) ?></h1>
-	
-	<?php 
-	if (!isset($Alumno))
-    {
-    	$Alumno = '';
-    }
-	 ?>
+    
+    <?php if (!isset($Alumno)){$Alumno = '';}?>
 
     <?= $this->render('_form', [
         'model' => $model,
         'Alumno' => $Alumno,
+        'nacionalidad' => $nacionalidad,
+        'grados' => $grados,
+        'parroquias' => $parroquias
     ]) ?>
 
 </div>

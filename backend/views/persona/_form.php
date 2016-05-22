@@ -3,24 +3,21 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use \kartik\datetime\DateTimePicker;
-//use \kartik\datepicker\DatePicker;
 use \kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Persona */
 /* @var $form yii\widgets\ActiveForm */
+
+//$nacionalidad = array('1' => 'V' , '2' => 'E');
+$sexo = array('M' => 'M' , 'F' => 'F');
 ?>
 
 <div class="persona-form">
-    
-    <?php 
-        echo date('d-m-Y');
-    ?>
 
-    <?php  
-    $form = ActiveForm::begin(); ?>
+    <?php  $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nacionalidad')->textInput() ?>
+    <?= $form->field($model, 'nacionalidad')->dropDownList($nacionalidad) ?>
 
     <?= $form->field($model, 'numero_identificacion')->textInput(['maxlength' => true]) ?>
 
@@ -32,7 +29,7 @@ use \kartik\date\DatePicker;
 
     <?= $form->field($model, 'segundo_apellido')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sexo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sexo')->dropDownList($sexo) ?>
 
     <?php 
     
@@ -44,7 +41,7 @@ use \kartik\date\DatePicker;
         'convertFormat' => true,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-MM-yyyy'
+            'format' => 'yyyy-MM-dd'
         ]
     ]); ?>
 
@@ -57,7 +54,7 @@ use \kartik\date\DatePicker;
         'convertFormat' => true,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-MM-yyyy'
+            'format' => 'yyyy-MM-dd'
         ]
     ]); ?>
 
@@ -68,7 +65,7 @@ use \kartik\date\DatePicker;
         'convertFormat' => true,
         'pluginOptions' => [
             'autoclose'=>true,
-            'format' => 'dd-MM-yyyy'
+            'format' => 'yyyy-MM-dd'
         ]
     ]);?>
 
@@ -88,9 +85,9 @@ use \kartik\date\DatePicker;
 
     <?= $form->field($model, 'ocupacion')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'grado_instruccion_id')->textInput() ?>
+    <?= $form->field($model, 'grado_instruccion_id')->dropDownList($grados) ?>
 
-    <?= $form->field($model, 'parroquia_id')->textInput() ?>
+    <?= $form->field($model, 'parroquia_id')->dropDownList($parroquias) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
